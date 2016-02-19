@@ -1,0 +1,53 @@
+<launch>
+  <node pkg="nodelet" type="nodelet" name="vo_nodelet_manager"  args="manager" output="screen"/>
+
+  <!-- ********************************************************************************
+       Camera nodelet
+  --> 
+  <node pkg="nodelet" type="nodelet" name="camera" args="load bluefox_ros/BluefoxCameraNodelet vo_nodelet_manager" output="screen">
+    <rosparam>
+      fps: 60
+      gain: 1.5
+      exp_time: 4000
+      internal_exposure_control: false
+    </rosparam>
+  </node>  
+ 
+  <!-- ********************************************************************************
+       SVO node
+  -->
+  <node pkg="nodelet" type="nodelet" name="svo" clear_params="true" args="load svo_ros/SvoNodelet vo_nodelet_manager" output="screen" launch-prefix="gdb -ex run --args">
+    
+    <!-- Camera topic to subscribe to -->
+    <param name="cam0_topic" value="camera/image_raw" type="str" />
+    
+    <!-- Camera calibration file -->
+    <param name="calib_file" value="$(find rpg_calib)/ncamera/bluefox_847_cfo_atan.yaml" />
+
+    <param name="max_fts" value="180" />
+    <param name="kfselect_criterion" value="FORWARD" type="str" />
+    <param name="kfselect_numkfs_upper_thresh" value="120" />
+    <param name="kfselect_numkfs_lower_thresh" value="40" />
+    <param name="kfselect_min_dist_metric" value="0.01" />
+    <param name="kfselect_min_angle" value="20" />
+    <param name="kfselect_min_disparity" value="35" />
+    <param name="update_seeds_with_old_keyframes" value="True" />
+
+    <!-- Additional parameters -->
+    <param name="T_world_imuinit/qx" value="0" />
+    <param name="T_world_imuinit/qy" value="0" />
+    <param name="T_world_imuinit/qz" value="0" />
+    <param name="T_world_imuinit/qw" value="1" />
+
+    <!-- Dense Input -->
+    <param name="publish_every_nth_dense_input" value="5" />
+    <param name="publish_marker_scale" value="0.5" />
+  </node>
+
+  <!--
+      RVIZ + SVO GUI
+  <node name="vis" pkg="rviz" type="rviz" args=" -d $(find svo_ros)/rviz_config.rviz" /> 
+  <node name="svo_gui" pkg="rqt_svo" type="rqt_svo" args="" />
+  -->
+  
+</launch>

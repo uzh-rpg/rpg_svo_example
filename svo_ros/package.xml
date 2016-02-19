@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>svo_ros</name>
+  <version>0.1.0</version>
+  <description>
+    Visual Odometry - ROS Nodes
+  </description>
+
+  <author>Christian Forster</author>
+  <maintainer email="forster@ifi.uzh.ch">Christian Forster</maintainer>
+  <license>RPG</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>catkin_simple</buildtool_depend>
+
+  <depend>nodelet</depend>
+  <depend>roscpp</depend>
+  <depend>nav_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>image_transport</depend>
+  <depend>cv_bridge</depend>
+  <depend>tf</depend>
+  <depend>svo</depend>
+  <depend>svo_msgs</depend>
+  <depend>svo_cmake</depend>
+  <depend>svo_common</depend>
+  <depend>svo_tracker</depend>
+  <depend>svo_backend</depend>
+  <depend>vikit_common</depend>
+  <depend>vikit_ros</depend>
+  <depend>eigen_catkin</depend>
+  <depend>minkindr</depend>
+  <depend>pcl_ros</depend>
+
+  <export>
+    <nodelet plugin="${prefix}/svo_nodelet.xml"/>
+  </export>
+</package>
