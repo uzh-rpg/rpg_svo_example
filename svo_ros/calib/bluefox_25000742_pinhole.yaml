@@ -1,0 +1,28 @@
+cameras:
+- camera:
+    distortion:
+      parameters:
+        cols: 1
+        rows: 4
+        data: [-0.277970, 0.060647, -0.002097, 0.000373]
+      type: radial-tangential
+    image_height: 480
+    image_width: 752
+    intrinsics:
+      cols: 1
+      rows: 4
+      data: [416.401549, 416.375319, 385.554786, 237.640332]
+    label: cam0
+    line-delay-nanoseconds: 0
+    type: pinhole
+  T_B_C:
+    cols: 4
+    rows: 4
+    data: [ 1.0, 0.0, 0.0, 0.038,
+            0.0, -1.0, 0.0, 0.0,
+            0.0, 0.0, -1.0, -0.02,
+            0.0, 0.0, 0.0, 1.0]
+  serial_no: 25000742
+  calib_date: 2015-03-05
+  description: 'Bluefox 0742'
+label: bluefox-0742

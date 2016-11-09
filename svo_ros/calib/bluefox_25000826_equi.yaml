@@ -1,0 +1,28 @@
+cameras:
+- camera:
+    distortion:
+      parameters:
+        cols: 1
+        rows: 4
+        data: [-0.042748291579198384, -0.012338895220958084, 0.020575944694821845,
+          -0.010432642512385784]
+      type: equidistant
+    image_height: 480
+    image_width: 752
+    intrinsics:
+      cols: 1
+      rows: 4
+      data: [212.20595878579752, 211.93463862680093, 397.43146518249233, 242.44205491777075]
+    label: cam0
+    line-delay-nanoseconds: 0
+    type: pinhole
+    mask: 25000826_fisheye_mask.png
+  T_B_C:
+    cols: 4
+    rows: 4
+    data: [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
+      1.0]
+  serial_no: 0
+  calib_date: 0
+  description: /camera/image_raw
+label: camchain-homezichaoworkspacecalib250008262016-10-02-15-20-30.yaml
