@@ -33,9 +33,9 @@ BaseOptions loadBaseOptions(const ros::NodeHandle& pnh, bool forward_default)
   o.init_map_scale = vk::param<double>(pnh, "map_scale", 1.0);
   std::string default_kf_criterion = forward_default ? "FORWARD" : "DOWNLOOKING";
   if(vk::param<std::string>(pnh, "kfselect_criterion", default_kf_criterion) == "FORWARD")
-    o.kfselect_criterion = KeyframeCriterion::DOWNLOOKING;
-  else
     o.kfselect_criterion = KeyframeCriterion::FORWARD;
+  else
+    o.kfselect_criterion = KeyframeCriterion::DOWNLOOKING;
   o.kfselect_min_dist = vk::param<double>(pnh, "kfselect_min_dist", 0.12);
   o.kfselect_numkfs_upper_thresh = vk::param<int>(pnh, "kfselect_numkfs_upper_thresh", 120);
   o.kfselect_numkfs_lower_thresh = vk::param<double>(pnh, "kfselect_numkfs_lower_thresh", 70);
@@ -46,6 +46,12 @@ BaseOptions loadBaseOptions(const ros::NodeHandle& pnh, bool forward_default)
   o.img_align_max_level = vk::param<int>(pnh, "img_align_max_level", 4);
   o.img_align_min_level = vk::param<int>(pnh, "img_align_min_level", 2);
   o.img_align_robustification = vk::param<bool>(pnh, "img_align_robustification", false);
+  o.img_align_use_distortion_jacobian =
+      vk::param<bool>(pnh, "img_align_use_distortion_jacobian", false);
+  o.img_align_est_illumination_gain =
+      vk::param<bool>(pnh, "img_align_est_illumination_gain", false);
+  o.img_align_est_illumination_offset =
+      vk::param<bool>(pnh, "img_align_est_illumination_offset", false);
   o.poseoptim_thresh = vk::param<double>(pnh, "poseoptim_thresh", 2.0);
   o.update_seeds_with_old_keyframes =
       vk::param<bool>(pnh, "update_seeds_with_old_keyframes", true);
@@ -74,6 +80,8 @@ DepthFilterOptions loadDepthFilterOptions(const ros::NodeHandle& pnh)
   o.use_threaded_depthfilter = vk::param<bool>(pnh, "use_threaded_depthfilter", true);
   o.seed_convergence_sigma2_thresh = vk::param<double>(pnh, "seed_convergence_sigma2_thresh", 200.0);
   o.scan_epi_unit_sphere = vk::param<bool>(pnh, "scan_epi_unit_sphere", false);
+  o.affine_est_offset= vk::param<bool>(pnh, "depth_filter_affine_est_offset", true);
+  o.affine_est_gain = vk::param<bool>(pnh, "depth_filter_affine_est_gain", false);
   o.max_n_seeds_per_frame =
       vk::param<int>(pnh, "max_fts", 120) * vk::param<double>(pnh, "max_seeds_ratio", 3.0);
   return o;
@@ -118,6 +126,8 @@ ReprojectorOptions loadReprojectorOptions(const ros::NodeHandle& pnh)
   o.max_n_features_per_frame = vk::param<int>(pnh, "max_fts", 160);
   o.cell_size = vk::param<int>(pnh, "grid_size", 35);
   o.reproject_unconverged_seeds = vk::param<bool>(pnh, "reproject_unconverged_seeds", true);
+  o.affine_est_offset = vk::param<bool>(pnh, "reprojector_affine_est_offset", true);
+  o.affine_est_gain = vk::param<bool>(pnh, "reprojector_affine_est_gain", false);
   return o;
 }
 

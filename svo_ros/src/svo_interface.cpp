@@ -192,34 +192,25 @@ void SvoInterface::monoCallback(const sensor_msgs::ImageConstPtr& msg)
   if(idle_)
     return;
 
-  cv::Mat img_8uC1, img_8uC3;
+  cv::Mat image;
   try
   {
-    namespace imgenc = sensor_msgs::image_encodings;
-    if (imgenc::isMono(msg->encoding))
-    {
-      img_8uC1 = cv_bridge::toCvCopy(msg, imgenc::MONO8)->image;
-    }
-    else
-    {
-      img_8uC3 = cv_bridge::toCvCopy(msg, imgenc::BGR8)->image;
-      img_8uC1 = cv_bridge::toCvCopy(msg, imgenc::MONO8)->image;
-    }
+    image = cv_bridge::toCvCopy(msg)->image;
   }
   catch (cv_bridge::Exception& e)
   {
     ROS_ERROR("cv_bridge exception: %s", e.what());
   }
 
-  std::vector<cv::Mat> images_8uC1;
-  images_8uC1.push_back(img_8uC1.clone());
+  std::vector<cv::Mat> images;
+  images.push_back(image.clone());
 
   setImuPrior(msg->header.stamp.toNSec());
 
   imageCallbackPreprocessing(msg->header.stamp.toNSec());
 
-  processImageBundle(images_8uC1, msg->header.stamp.toNSec());
-  publishResults(images_8uC1, msg->header.stamp.toNSec());
+  processImageBundle(images, msg->header.stamp.toNSec());
+  publishResults(images, msg->header.stamp.toNSec());
 
   if(svo_->stage() == Stage::kPaused && automatic_reinitialization_)
     svo_->start();

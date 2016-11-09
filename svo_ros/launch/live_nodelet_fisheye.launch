@@ -1,14 +1,22 @@
+<!--
+     This launch file is almost the same as the one for pinhole camera, except that:
+     * it supports different fisheye calibration files (corresponding to different camera models)
+     * it uses a different parameter setting (see fisheye.yaml for details)
+-->
 <launch>
-  <arg name="serial_nr" />
-  <arg name="calib_file" default="$(find rpg_calib)/ncamera/bluefox_$(arg serial_nr)_pinhole.yaml"/>
+  <arg name="serial_nr" default="25000826" />
+  <arg name="model_type" default="fisheye" />
+  <arg name="calib_file" default="$(find rpg_calib)/ncamera/bluefox_$(arg serial_nr)_$(arg model_type).yaml"/>
 
   <node pkg="nodelet" type="nodelet" name="vo_nodelet_manager"  args="manager" output="screen"/>
 
   <!-- Camera driver -->
   <node pkg="nodelet" type="nodelet" name="camera" args="load bluefox_ros/BluefoxCameraNodelet vo_nodelet_manager" output="screen">
+    <param name="hdr_mode" value="True" />
+    <param name="hdr_setting" value="1" />
     <param name="serial_nr" value="$(arg serial_nr)" />
-    <param name="fps" value="60" />
-    <param name="gain" value="1.1" />
+    <param name="fps" value="50" />
+    <param name="gain" value="2.0" />
     <param name="exp_time" value="5000" />
     <param name="internal_exposure_control" value="false" />
   </node>
@@ -23,7 +31,7 @@
     <param name="calib_file" value="$(arg calib_file)" />
 
     <!--Parameters-->
-    <rosparam file="$(find svo_ros)/param/pinhole.yaml" />
+    <rosparam file="$(find svo_ros)/param/fisheye.yaml" />
 
   </node>
 

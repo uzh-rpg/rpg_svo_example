@@ -5,6 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - //svo/points1/Namespaces1
+        - //svo/loop_closures1
       Splitter Ratio: 0.5
     Tree Height: 350
   - Class: rviz/Selection
@@ -25,7 +26,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: /svo/image/0
 Visualization Manager:
   Class: ""
   Displays:
@@ -52,23 +53,28 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        cam_pos:
+          Value: true
+        world:
+          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        world:
+          {}
       Update Interval: 0
       Value: true
     - Class: rviz/Marker
-      Enabled: true
+      Enabled: false
       Marker Topic: /svo/keyframes
       Name: /svo/keyframes
       Namespaces:
         {}
       Queue Size: 100
-      Value: true
+      Value: false
     - Class: rviz/Marker
       Enabled: true
       Marker Topic: /svo/points
@@ -128,6 +134,14 @@ Visualization Manager:
       Queue Size: 2
       Transport Hint: raw
       Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /svo/loop_closures
+      Name: /svo/loop_closures
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 255; 255; 255
@@ -152,22 +166,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 10.2116
+      Distance: 7.0305
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.728566
-        Y: 0.00151572
-        Z: -0.73365
+        X: 0.583405
+        Y: 0.297882
+        Z: -0.138986
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.444796
+      Pitch: 0.414796
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.50357
+      Yaw: 4.51357
     Saved: ~
 Window Geometry:
   /remode/depth:

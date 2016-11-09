@@ -24,16 +24,18 @@ SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -O3 -fsee -fomit-frame-pointer -
 
 #############################################################################
 # Build library
+
 set(HEADERS
   include/svo_ros/svo_interface.h
   include/svo_ros/svo_factory.h
-  include/svo_ros/svo_nodelet.h
   include/svo_ros/visualizer.h
+  include/svo_ros/svo_nodelet.h
 )
 
 set(SOURCES
   src/svo_interface.cpp
   src/svo_factory.cpp
+  src/svo_node_base.cpp
   src/visualizer.cpp
 )
 
@@ -50,4 +52,7 @@ target_link_libraries(svo_nodelet ${PROJECT_NAME})
 #############################################################################
 # Install
 cs_install()
+install(FILES svo_nodelet.xml
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
 cs_export()

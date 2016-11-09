@@ -8,13 +8,14 @@
 
   <author>Christian Forster</author>
   <maintainer email="forster@ifi.uzh.ch">Christian Forster</maintainer>
-  <license>RPG</license>
+  <license>GPLv3</license>
 
   <buildtool_depend>catkin</buildtool_depend>
   <buildtool_depend>catkin_simple</buildtool_depend>
 
   <depend>nodelet</depend>
   <depend>roscpp</depend>
+  <depend>cmake_modules</depend> 
   <depend>nav_msgs</depend>
   <depend>std_msgs</depend>
   <depend>visualization_msgs</depend>
@@ -27,12 +28,12 @@
   <depend>svo_cmake</depend>
   <depend>svo_common</depend>
   <depend>svo_tracker</depend>
-  <depend>svo_backend</depend>
   <depend>vikit_common</depend>
   <depend>vikit_ros</depend>
   <depend>eigen_catkin</depend>
   <depend>minkindr</depend>
   <depend>pcl_ros</depend>
+  <depend>rpg_common</depend>
 
   <export>
     <nodelet plugin="${prefix}/svo_nodelet.xml"/>

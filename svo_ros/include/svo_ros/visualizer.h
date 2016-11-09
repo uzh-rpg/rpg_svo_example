@@ -56,6 +56,8 @@ public:
   std::vector<ros::Publisher> pub_cam_poses_;
   std::vector<ros::Publisher> pub_dense_;
   std::vector<image_transport::Publisher> pub_images_;
+  ros::Publisher pub_loop_closure_;
+
   tf::TransformBroadcaster br_;
   bool publish_world_in_cam_frame_;
   bool publish_map_every_frame_;
@@ -151,6 +153,10 @@ public:
       const FramePtr& frame,
       const uint64_t timestamp,
       const double marker_scale = 0.05);
+
+  void publishLoopClosure(
+      const FramePtr& query, const FramePtr& match,
+      const Transformation& T_match_query);
 
   void exportToDense(const FrameBundlePtr& frame_bundle);
 

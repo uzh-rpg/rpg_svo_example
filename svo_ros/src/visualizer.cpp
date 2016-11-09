@@ -76,6 +76,8 @@ Visualizer::Visualizer(
     pub_images_.at(i) = it.advertise("image/"+std::to_string(i), 10);
     pub_cam_poses_.at(i) = pnh_.advertise<geometry_msgs::PoseStamped>("pose_cam/"+std::to_string(i), 10);
   }
+  pub_loop_closure_ = pnh_.advertise<visualization_msgs::Marker>(
+      "loop_closures", 10);
 
   // init tracing
   std::string states_trace_name(trace_dir_+"/trace_states.txt");
@@ -234,7 +236,21 @@ void Visualizer::publishImages(
 
     // Downsample image for publishing.
     ImgPyr img_pyr;
-    frame_utils::createImgPyramid(images[i], img_pub_level_+1, img_pyr);
+    if (images[i].type() == CV_8UC1)
+    {
+      frame_utils::createImgPyramid(images[i], img_pub_level_+1, img_pyr);
+    }
+    else if (images[i].type() == CV_8UC3)
+    {
+      cv::Mat gray_image;
+      cv::cvtColor(images[i], gray_image, CV_BGR2GRAY);
+      frame_utils::createImgPyramid(gray_image, img_pub_level_+1, img_pyr);
+    }
+    else
+    {
+      LOG(FATAL) << "Unknown image type " << images[i].type() << "!";
+    }
+
     cv_bridge::CvImage img_msg;
     img_msg.header.stamp = ros::Time().fromNSec(timestamp_nanoseconds);
     img_msg.header.frame_id = "/cam"+std::to_string(i);
@@ -304,8 +320,8 @@ void Visualizer::visualizeMarkers(
     const Map::Ptr& map)
 {
   FramePtr frame = frame_bundle->at(0); // TODO
-  visualizeHexacopter(frame->T_f_w_, frame->getTimestampNSec());
-  publishTrajectoryPoint(frame->pos(), frame->getTimestampNSec(), trace_id_);
+  visualizeHexacopter(frame->T_f_w_, ros::Time::now().toNSec());
+  publishTrajectoryPoint(frame->pos(), ros::Time::now().toNSec(), trace_id_);
   if(frame->isKeyframe() || publish_map_every_frame_)
   {
     std::vector<FramePtr> frames_to_visualize = close_kfs;
@@ -568,6 +584,57 @@ void Visualizer::publishKeyframeWithPoints(
   }
 }
 
+void Visualizer::publishLoopClosure(
+      const FramePtr& query, const FramePtr& match,
+      const Transformation& T_match_query)
+{
+  CHECK(query);
+  const Eigen::Vector3d p_w_query = query->T_f_w_.inverse().getPosition();
+  const Eigen::Vector3d p_w_match = match->T_f_w_.inverse().getPosition();
+  const Eigen::Vector3d p_w_query_should =
+      (match->T_f_w_.inverse() * T_match_query).getPosition();
+
+  visualization_msgs::Marker marker;
+  marker.header.frame_id = "/world";
+  marker.header.stamp = ros::Time::now();
+  marker.ns = "lcs";
+  marker.id = query->id() * 2;
+  marker.type = visualization_msgs::Marker::ARROW;
+  marker.action = visualization_msgs::Marker::ADD;
+  marker.points.reserve(2);
+  geometry_msgs::Point point;
+  point.x = static_cast<float>(p_w_match.x());
+  point.y = static_cast<float>(p_w_match.y());
+  point.z = static_cast<float>(p_w_match.z());
+  marker.points.push_back(point);
+  point.x = static_cast<float>(p_w_query_should.x());
+  point.y = static_cast<float>(p_w_query_should.y());
+  point.z = static_cast<float>(p_w_query_should.z());
+  marker.points.push_back(point);
+  marker.scale.x = 0.01;
+  marker.scale.y = 0.01;
+  marker.color.a = 1.0;
+  marker.color.r = 0.0;
+  marker.color.g = 1.0;
+  marker.color.b = 0.0;
+  pub_loop_closure_.publish(marker);
+
+  marker.id = query->id() * 2 + 1;
+  marker.points.clear();
+  point.x = static_cast<float>(p_w_query.x());
+  point.y = static_cast<float>(p_w_query.y());
+  point.z = static_cast<float>(p_w_query.z());
+  marker.points.push_back(point);
+  point.x = static_cast<float>(p_w_query_should.x());
+  point.y = static_cast<float>(p_w_query_should.y());
+  point.z = static_cast<float>(p_w_query_should.z());
+  marker.points.push_back(point);
+  marker.color.r = 1.0;
+  marker.color.g = 0.0;
+  marker.color.b = 0.0;
+  pub_loop_closure_.publish(marker);
+}
+
 void Visualizer::exportToDense(const FrameBundlePtr& frame_bundle)
 {
   VLOG(100) << "Publish dense input.";
@@ -586,8 +653,16 @@ void Visualizer::exportToDense(const FrameBundlePtr& frame_bundle)
       cv_bridge::CvImage img_msg;
       img_msg.header.stamp = msg.header.stamp;
       img_msg.header.frame_id = "camera";
-      img_msg.image = frame->img();
-      img_msg.encoding = sensor_msgs::image_encodings::MONO8;
+      if (!frame->original_color_image_.empty())
+      {
+        img_msg.image = frame->original_color_image_;
+        img_msg.encoding = sensor_msgs::image_encodings::BGR8;
+      }
+      else
+      {
+        img_msg.image = frame->img();
+        img_msg.encoding = sensor_msgs::image_encodings::MONO8;
+      }
       msg.image = *img_msg.toImageMsg();
 
       double min_z = std::numeric_limits<double>::max();
