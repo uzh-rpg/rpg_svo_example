@@ -1,6 +1,6 @@
 <launch>
   <arg name="cam_name" />
-  <arg name="calib_file" default="$(find rpg_calib)/ncamera/$(arg cam_name).yaml"/>
+  <arg name="calib_file" default="$(find svo_ros)/calib/$(arg cam_name).yaml"/>
 
   <!-- SVO node -->
   <node pkg="svo_ros" type="svo_node" name="svo" clear_params="true" output="screen">
