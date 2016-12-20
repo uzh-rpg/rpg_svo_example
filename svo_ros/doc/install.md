@@ -5,6 +5,8 @@ Make sure your system meets the following requirements:
 * gcc version 4.8
 * ROS version `indigo` ([installation guide](http://wiki.ros.org/indigo/Installation/Ubuntu)).
 
+For 16.04, install the ROS version `kinetic` instead ([installation guide](http://wiki.ros.org/kinetic/Installation/Ubuntu)) and the default gcc version of Ubuntu 16.04 should work.
+
 #### Install catkin tools
 We use [catkin tools](https://catkin-tools.readthedocs.io/en/latest/) to build workspace. It is recommended to use catkin 0.3.1:
 
