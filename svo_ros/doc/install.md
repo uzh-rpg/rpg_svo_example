@@ -19,7 +19,7 @@ Remember to remove the previous version that you are using.
 ### Install
 
 #### Create the install workspace
-Extract the `svo` install workspace zip file to where you want to install the binaries (e.g., your home folder).
+Copy the `svo` install workspace to where you want to install the binaries (e.g., your home folder).
 Then we should have a folder `~/svo_install_ws` with a subfolder named `install`.
 
 Run the script within the workspace to fix some hardcoded paths:
