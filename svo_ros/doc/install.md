@@ -19,8 +19,7 @@ Remember to remove the previous version that you are using.
 ### Install
 
 #### Create the install workspace
-Download the install workspace from: http://rpg.ifi.uzh.ch/software/svo_install_ws_1404.zip.
-Extract the zip file to where you want to install the binaries (e.g., your home folder).
+Extract the `svo` install workspace zip file to where you want to install the binaries (e.g., your home folder).
 Then we should have a folder `~/svo_install_ws` with a subfolder named `install`.
 
 Run the script within the workspace to fix some hardcoded paths:
@@ -42,15 +41,14 @@ Create a new catkin workspace:
     cd svo_install_overlay_ws
     catkin init
     catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release
+    mkdir src
 
 Now, this workspace should overlay both the ros installation and the `svo_install_ws`. Typing `catkin config`, you should see:
 
     Extending:    [env] /home/deploy_user/svo_install_ws/install:/opt/ros/indigo
+    
+Copy this repository to the `src` folder and build the `svo_install_overlay_ws`
 
-Clone the `rpg_svo_example` repository to use the binary:
-
-    mkdir src
-    cd src
-    git clone git@github.com:uzh-rpg/rpg_svo_example.git
     catkin build
+    
 Then you can use SVO via `rpg_svo_example`.
