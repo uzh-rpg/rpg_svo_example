@@ -1,14 +1,19 @@
 ### Prerequisites
 #### System
 Make sure your system meets the following requirements:
+
 * Ubuntu 14.04 64 bit
 * gcc version 4.8
 * ROS version `indigo` ([installation guide](http://wiki.ros.org/indigo/Installation/Ubuntu)).
 
-For 16.04, install the ROS version `kinetic` instead ([installation guide](http://wiki.ros.org/kinetic/Installation/Ubuntu)) and the default gcc version of Ubuntu 16.04 should work.
+or 
+
+* Ubuntu 16.04 64 bit
+* gcc version 5.4
+* ROS version `kinetic` ([installation guide](http://wiki.ros.org/kinetic/Installation/Ubuntu)).
 
 #### Install catkin tools
-We use [catkin tools](https://catkin-tools.readthedocs.io/en/latest/) to build workspace. It is recommended to use catkin 0.3.1:
+We use [catkin tools](https://catkin-tools.readthedocs.io/en/latest/) to build workspace. Use catkin 0.3.1:
 
     sudo apt-get install python-pip
     sudo pip install catkin-tools==0.3.1
@@ -19,16 +24,17 @@ Remember to remove the previous version that you are using.
 ### Install
 
 #### Create the install workspace
-Copy the `svo` install workspace to where you want to install the binaries (e.g., your home folder).
-Then we should have a folder `~/svo_install_ws` with a subfolder named `install`.
+Copy the `svo` install workspace to where you want to install the binaries (e.g., your home folder in this documentation). Then we should have a folder `~/svo_install_ws` with a subfolder named `install`.
 
 Run the script within the workspace to fix some hardcoded paths:
 
     cd svo_install_ws
     ./fix_path.sh
+    
+ There may be some warnings with `opengv`, which can be safely ignored.
 
 #### Create an overlay workspace
-Now we will create a workspace to use the binaries we just downloaded. Before proceeding, make sure you have already source the setup file from ROS (`/opt/ros/indigo/setup.bash`).
+Now we will create a workspace to use the binaries we just downloaded. Before proceeding, make sure you have already source the setup file from ROS (`/opt/ros/<your ros version>/setup.bash`).
 
 First source the install workspace:
 
@@ -45,9 +51,9 @@ Create a new catkin workspace:
 
 Now, this workspace should overlay both the ros installation and the `svo_install_ws`. Typing `catkin config`, you should see:
 
-    Extending:    [env] /home/deploy_user/svo_install_ws/install:/opt/ros/indigo
+    Extending:    [env] /home/deploy_user/svo_install_ws/install:/opt/ros/<your ros version>
     
-Copy this repository to the `src` folder and build the `svo_install_overlay_ws`
+Copy the `rpg_svo_example` folder to the `src` folder and build the `svo_install_overlay_ws`
 
     catkin build
     
