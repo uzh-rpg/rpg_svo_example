@@ -12,6 +12,8 @@ or
 * gcc version 5.4
 * ROS version `kinetic` ([installation guide](http://wiki.ros.org/kinetic/Installation/Ubuntu)).
 
+If you have multiple `gcc` installed, make sure the aforementioned version is the default one (use `update-alternatives`).
+
 #### Install catkin tools
 We use [catkin tools](https://catkin-tools.readthedocs.io/en/latest/) to build workspace. Use catkin 0.3.1:
 
@@ -57,4 +59,4 @@ Copy the `rpg_svo_example` folder to the `src` folder and build the `svo_install
 
     catkin build
     
-Then you can use SVO via `rpg_svo_example`.
+Then you can use SVO via `rpg_svo_example`. See `get_started.md` for running some test bags.
