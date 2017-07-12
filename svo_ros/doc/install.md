@@ -75,4 +75,12 @@ Download the test bag from [here](http://rpg.ifi.uzh.ch/svo2/svo_test_short.bag)
     roslaunch svo_ros run_from_topic.launch cam_name:=svo_test_pinhole
     rosbag play svo_test_short.bag
 
-Then you should be able to observe the camera motion and the sparse map in RVIZ.
+Then you should be able to observe the camera motion and the sparse map in RVIZ, as shown below
+
+![test rviz](./imgs/test_rviz.png)
+
+You can also check the number of feature tracked and the pipeline status in the following rqt window
+
+![test rqt](./imgs/test_rqt.png)
+
+At the first launch, the `SVO Namespace` may be incorrect and the information is not displayed. Simply typing `svo` as shown in the screenshot will solve the problem.
