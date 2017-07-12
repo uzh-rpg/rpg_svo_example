@@ -40,8 +40,7 @@ In the launch file, you have to specify the following for svo node/nodelet, as i
     <!--Parameters-->
     <rosparam file="$(find svo_ros)/param/pinhole.yaml" />
 
-  Note that SVO also supports stereo and multiple cameras.
-
+  Note that SVO also supports stereo cameras.
 
 #### Parameter files
 We provide two example parameter files under `svo_ros/param`:
@@ -51,4 +50,5 @@ We provide two example parameter files under `svo_ros/param`:
 The parameters in these files are typical values. If you wish to change the parameters, please refer to the comments in these two files.
 
 #### Camera calibration files
+If you want to use your own camera, make sure a global shutter camera is used. A good choice is [the Bluefox camera](https://www.matrix-vision.com/USB2.0-single-board-camera-mvbluefox-mlc.html) from MatrixVision.
 You can put camera calibration files under `svo_ros/calib` and load them as in `run_from_topic.launch`. We use yaml files to specify camera parameters. Please refer to `camera_calibration.md` for more details.
