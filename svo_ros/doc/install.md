@@ -6,7 +6,7 @@ Make sure your system meets the following requirements:
 * gcc version 4.8
 * ROS version `indigo` ([installation guide](http://wiki.ros.org/indigo/Installation/Ubuntu)).
 
-or 
+or
 
 * Ubuntu 16.04 64 bit
 * gcc version 5.4
@@ -33,11 +33,11 @@ Copy the `svo_install_ws` to where you want to install the binaries (e.g., your 
 Now we should have a folder `~/svo_install_ws` with a subfolder named `install`.
 
 Run the script within the workspace to fix some hardcoded paths:
-    
+
     cd ~
     cd svo_install_ws
     ./fix_path.sh
-    
+
 There may be some warnings with `opengv`, which can be safely ignored.
 
 #### Create an overlay workspace
@@ -57,10 +57,10 @@ Create a new catkin workspace:
 
 Now, this workspace should overlay both the ros installation and the `svo_install_ws`. Typing `catkin config`, you should see:
 
-    Extending:    [env] /home/deploy_user/svo_install_ws/install:/opt/ros/<your ros version>
-    
+    Extending:    [env] /home/<user>/svo_install_ws/install:/opt/ros/<ros version>
+
 Copy the `rpg_svo_example` folder to the `src` folder and build the `svo_install_overlay_ws`
-    
+
     cd -r <extracted folder>/rpg_svo_example ~/svo_install_overlay_ws/src
     cd ~/svo_install_overlay_ws
     catkin build
@@ -69,7 +69,7 @@ Copy the `rpg_svo_example` folder to the `src` folder and build the `svo_install
 Source the setup file of the overlay workspace:
 
     source ~/svo_install_overlay_ws/devel/setup.bash
-    
+
 Download the test bag from [here](http://rpg.ifi.uzh.ch/svo2/svo_test_short.bag). Then run the following commands:
 
     roslaunch svo_ros run_from_topic.launch cam_name:=svo_test_pinhole

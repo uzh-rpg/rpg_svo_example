@@ -4,7 +4,7 @@ Here we introduce how to calibrate cameras using several commonly used models an
 This is the distortion model used in opencv and ROS, also known as `plumb_bob`. We can calibrate it using the tool provided by ROS:
 ```
 sudo apt-get install ros-indigo-camera-calibration
-rosrun camera_calibration cameracalibrator.py --size 9x6 --square 0.04 image:=/camera/image_raw camera:=/camera
+rosrun camera_calibration cameracalibrator.py <specify topics/calibration target>
 ```
 Make sure to adapt size for the checkerboard actually used. What you get is in the format:
 ```
@@ -52,7 +52,7 @@ label: $camera_name
 
 ```
 
-`T_B_C` is the transformation from the camera frame to the IMU frame. This is used when SVO is set to use the IMU.
+`T_B_C` is the pose of the camera frame in the IMU frame. This is used when SVO is set to use the IMU.
 
 ### Pinhole projection + Equidistant
 This is a generic distortion model that can model very different field of views ([paper](http://www.ee.oulu.fi/mvg/files/pdf/pdf_697.pdf)), therefore we can use it for pinhole as well as fisheye cameras. OpenCV (from 3.0) also [supports this model](http://docs.opencv.org/master/db/d58/group__calib3d__fisheye.html). To calibrate a camera using a equidistant camera model, we can use [Kalibr](https://github.com/ethz-asl/kalibr). For details of Kalibr calibration, please refer to [this official manual](https://github.com/ethz-asl/kalibr/wiki/multiple-camera-calibration).
