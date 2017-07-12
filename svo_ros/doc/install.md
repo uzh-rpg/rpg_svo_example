@@ -26,37 +26,43 @@ Remember to remove the previous version that you are using.
 ### Install
 
 #### Create the install workspace
-Copy the `svo` install workspace to where you want to install the binaries (e.g., your home folder in this documentation). Then we should have a folder `~/svo_install_ws` with a subfolder named `install`.
+Copy the `svo_install_ws` to where you want to install the binaries (e.g., your home folder in this documentation):
+
+    cp -r <extracted folder>/svo_install_ws/ ~/
+
+Now we should have a folder `~/svo_install_ws` with a subfolder named `install`.
 
 Run the script within the workspace to fix some hardcoded paths:
-
+    
+    cd ~
     cd svo_install_ws
     ./fix_path.sh
     
- There may be some warnings with `opengv`, which can be safely ignored.
+There may be some warnings with `opengv`, which can be safely ignored.
 
 #### Create an overlay workspace
-Now we will create a workspace to use the binaries we just downloaded. Before proceeding, make sure you have already source the setup file from ROS (`/opt/ros/<your ros version>/setup.bash`).
+Now we will create a workspace to use the binaries we just downloaded. Before proceeding, make sure you have already source the setup file from ROS :
 
-First source the install workspace:
+    source /opt/ros/<your ros version>/setup.bash
+
+Then source the install workspace:
 
     cd ~
     source svo_install_ws/install/setup.bash
 
 Create a new catkin workspace:
 
-    mkdir svo_install_overlay_ws
-    cd svo_install_overlay_ws
-    catkin init
-    catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release
-    mkdir src
+    mkdir svo_install_overlay_ws && cd svo_install_overlay_ws
+    catkin config --init --mkdirs --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 Now, this workspace should overlay both the ros installation and the `svo_install_ws`. Typing `catkin config`, you should see:
 
     Extending:    [env] /home/deploy_user/svo_install_ws/install:/opt/ros/<your ros version>
     
 Copy the `rpg_svo_example` folder to the `src` folder and build the `svo_install_overlay_ws`
-
+    
+    cd -r <extracted folder>/rpg_svo_example ~/svo_install_overlay_ws/src
+    cd ~/svo_install_overlay_ws
     catkin build
 
 ### Validate Your Installation
