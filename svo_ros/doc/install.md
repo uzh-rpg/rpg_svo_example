@@ -58,5 +58,15 @@ Now, this workspace should overlay both the ros installation and the `svo_instal
 Copy the `rpg_svo_example` folder to the `src` folder and build the `svo_install_overlay_ws`
 
     catkin build
+
+### Validate Your Installation
+Source the setup file of the overlay workspace:
+
+    source ~/svo_install_overlay_ws/devel/setup.bash
     
-Then you can use SVO via `rpg_svo_example`. See `get_started.md` for running some test bags.
+Download the test bag from [here](http://rpg.ifi.uzh.ch/svo2/svo_test_short.bag). Then run the following commands:
+
+    roslaunch svo_ros run_from_topic.launch cam_name:=svo_test_pinhole
+    rosbag play svo_test_short.bag
+
+Then you should be able to observe the camera motion and the sparse map in RVIZ.
