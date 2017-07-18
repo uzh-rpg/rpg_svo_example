@@ -47,7 +47,7 @@ We provide two example parameter files under `svo_ros/param`:
 * `pinhole.yaml`: for relatively small field of view cameras
 * `fisheye.yaml`: for cameras with wide angle lens (e.g., fisheye and catadioptric)
 
-The parameters in these files are typical values. If you wish to change the parameters, please refer to the comments in these two files.
+The parameters in these files are typical values. If you wish to change the parameters, please refer to the comments in these two files. For a example of using `SVO` with a stereo-IMU setup and a different resolution, please refer to `advanced.md`.
 
 #### Camera calibration files
 If you want to use your own camera, make sure a global shutter camera is used. A good choice is [the Bluefox camera](https://www.matrix-vision.com/USB2.0-single-board-camera-mvbluefox-mlc.html) from MatrixVision.

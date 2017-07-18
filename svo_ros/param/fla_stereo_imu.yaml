@@ -2,10 +2,16 @@
 pipeline_is_stereo: True
 automatic_reinitialization: True # When lost, stereo can recover immediately
 
+# Stereo triangulation depth range
+max_depth_inv: 0.05
+min_depth_inv: 2.0
+mean_depth_inv: 0.3
+
 # IMU
 use_imu: True
 img_align_prior_lambda_rot: 5.0 # Gyroscope prior in sparse image alignment
 poseoptim_prior_lambda: 2.0 # Gyroscope prior in pose optimization
+
 
 # Keyframe selection
 max_n_kfs: 10
@@ -33,8 +39,3 @@ grid_size: 50 # Larger for larger images, for every cell you have max one featur
 n_pyr_levels: 4 # Increase for larger images (image align max minus one)
 detector_threshold_primary: 7 # Fast detector threshold
 detector_threshold_secondary: 250 # Edgelet detector threshold
-
-# Stereo parameters
-max_depth_inv: 0.05
-min_depth_inv: 2.0
-mean_depth_inv: 0.3
