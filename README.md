@@ -1,6 +1,3 @@
-**If you have any problem regarding using `SVO 2.0` binaries,
-you can either start an issue or contact Zichao Zhang (zzhang AT ifi DOT uzh DOT ch).**
-
 This repository contains examples to use `SVO 2.0` binaries in various configurations:
 * monocular
 * stereo
@@ -18,6 +15,8 @@ This repository will also be used for the following purposes:
 
 If the binaries are updated, you can download the new version from the original links in the email you received.
 
+**If you have any problem regarding using `SVO 2.0` binaries,
+you can either start an issue or contact Zichao Zhang (zzhang AT ifi DOT uzh DOT ch).**
 
 # Binaries changelog
 **17.07.2017** Initial Release
