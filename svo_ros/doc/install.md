@@ -12,6 +12,12 @@ or
 * gcc version 5.4
 * ROS version `kinetic` ([installation guide](http://wiki.ros.org/kinetic/Installation/Ubuntu)).
 
+We also support ARM architecture (tested on Odroid XU3/4) for
+
+  * Ubuntu 14.04 32 bit
+  * gcc version 4.8
+  * ROS version `indigo`
+
 If you have multiple `gcc` installed, make sure the aforementioned version is the default one (use `update-alternatives`).
 
 #### Install catkin tools
@@ -24,6 +30,11 @@ Remember to remove the previous version that you are using.
 
 
 ### Install
+
+If you are compiling on an ARM processor, make sure the `ARM_ARCHITECTURE` environment variable is defined, for example:
+```
+export ARM_ARCHITECTURE=armv7-a
+```
 
 #### Create the install workspace
 Copy the `svo_install_ws` to where you want to install the binaries (e.g., your home folder in this documentation):
@@ -66,6 +77,9 @@ Copy the `rpg_svo_example` folder to the `src` folder and build the `svo_install
     catkin build
 
 ### Validate Your Installation
+
+If you are using an ARM processor, follow  the instructions in `run_on_arm.md` from this point.
+
 Source the setup file of the overlay workspace:
 
     source ~/svo_install_overlay_ws/devel/setup.bash
