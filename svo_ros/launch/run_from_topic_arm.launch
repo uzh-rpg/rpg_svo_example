@@ -2,8 +2,10 @@
   <arg name="cam_name" />
   <arg name="calib_file" default="$(find svo_ros)/calib/$(arg cam_name).yaml"/>
 
-  <!-- SVO node -->
-  <node pkg="svo_ros" type="svo_node" name="svo" clear_params="true" output="screen">
+  <node pkg="nodelet" type="nodelet" name="vo_nodelet_manager"  args="manager" output="screen"/>
+
+  <!-- SVO nodelet -->
+  <node pkg="nodelet" type="nodelet" name="svo" clear_params="true" args="load svo_ros/SvoNodelet vo_nodelet_manager" output="screen">
 
     <!-- Camera topic to subscribe to -->
     <param name="cam0_topic" value="camera/image_raw" type="str" />
