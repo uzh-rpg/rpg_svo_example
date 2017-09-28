@@ -1,0 +1,23 @@
+map_scale: 1.0
+relocalization_max_trials: 100
+
+# The number of features and quality criteria
+max_fts: 120
+# If the number of features is lower, considered as failure.
+quality_min_fts: 70
+# If the number of features decreases more than this value, considered as failure.
+quality_max_drop_fts: 40
+
+# Use forward looking mode
+kfselect_criterion: FORWARD 
+# Based on the number of landmarks (NOT seeds)
+kfselect_numkfs_upper_thresh: 110
+kfselect_numkfs_lower_thresh: 70
+# must have enough disparity w.r.t. the last keyframe
+kfselect_min_disparity: 40
+# should be sufficiently far from any keyframes
+kfselect_min_angle: 10
+kfselect_min_dist_metric: 0.01
+# If it is acutally used as a forward looking camera
+# set this value to true 
+update_seeds_with_old_keyframes: True

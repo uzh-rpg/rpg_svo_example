@@ -1,0 +1,21 @@
+<launch>
+  <arg name="cam_name" />
+  <arg name="calib_file" default="$(find svo_ros)/calib/$(arg cam_name).yaml"/>
+
+  <!-- SVO node -->
+  <node pkg="svo_ros" type="svo_node" name="svo" clear_params="true" output="screen">
+
+    <!-- Camera topic to subscribe to -->
+    <param name="cam0_topic" value="camera/image_raw" type="str" />
+
+    <!-- Camera calibration file -->
+    <param name="calib_file" value="$(arg calib_file)" />
+
+    <!--Parameters-->
+    <!-- <rosparam file="$(find svo_ros)/param/pinhole.yaml" /> -->
+    <rosparam file="$(find svo_ros)/param/fast_pinhole.yaml" />
+    <param name="publish_img_pyr_level" value="2" />
+    <param name="publish_every_nth_img" value="10" />
+
+  </node>
+</launch>
