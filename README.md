@@ -17,8 +17,12 @@ This repository will also be used for the following purposes:
 
 If the binaries are updated, you can download the new version from the original links in the email you received.
 
+**ARM binaries**: You can replace the file name in the download link with `svo_binaries_1404_indigo_armhf.zip` to get the link for the `armhf` binaries.
+
 **If you have any problem regarding using `SVO 2.0` binaries,
 you can either start an issue or contact Zichao Zhang (zzhang AT ifi DOT uzh DOT ch).**
 
 # Binaries changelog
+**29.09.2017** Add binaries for `armhf` (14.04 + `indigo`)
+
 **17.07.2017** Initial Release
