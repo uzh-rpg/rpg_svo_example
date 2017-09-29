@@ -1,14 +1,22 @@
 # Running on ARM
 The ARM binaries do not include the GUI for SVO status (`rqt_svo`), since we usually run the applications on an ARM processor in a headless mode (e.g., via ssh). Therefore, you need to run the GUI (i.e., RVIZ and `rqt_svo` window) on another PC. In order to use the `rqt_svo` window, you need to have `SVO` set up on the PC as well.
 
-After installing `SVO` on both ARM and PC, you need to make the programs on the ARM and the PC share the same ROS master. Suppose the ARM and the PC are in the same network, one way to achieve this is:
+After installing `SVO` on both ARM and PC, you need to make the programs on the ARM and the PC share the same ROS master. Suppose the ARM and the PC are in the same network, first change the `ROS_MASTER_URI` to the IP address of the PC, where we will run the `roscore`, in `scripts/setupros_ip_arm.sh`:
+```
+# On the ARM, in setupros_ip_arm.sh
+...
+# change the ip to your PC where you run the roscore
+export ROS_MASTER_URI=http://192.168.200.7:11311
+...
+```
+Then run the following scripts (under `scripts` folder) respectively:
 ```
 # On the PC
-export ROS_MASTER_URI=http://192.168.200.7:11311
-# On the ARM
-export ROS_MASTER_URI=http://192.168.200.7:11311
+source setupros_ip_pc.sh
+# On the ARM:
+source setupros_ip_arm.sh
 ```
-remember to replace the IP address with the IP address of your PC. You may want to put the above lines in your `.bashrc`, otherwise you have to do it for every new terminal you open.
+You may want to put the above lines in your `.bashrc`, otherwise you have to do it for **every new terminal** you open.
 
 Then run `roscore` on the PC:
 ```
@@ -19,7 +27,7 @@ You should double check that the output of `roscore` reflects that the master is
 
 Afte setting up the `roscore`, run the following on the PC
 ```
-# On the PC
+# On the PC: you also need to manually load the rviz configuration `rviz_config.rviz`
 rosrun rviz rviz
 # After sourcing your SVO installation on the PC
 rqt_svo
