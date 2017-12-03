@@ -72,7 +72,7 @@ Now, this workspace should overlay both the ros installation and the `svo_instal
 
 Copy the `rpg_svo_example` folder to the `src` folder and build the `svo_install_overlay_ws`
 
-    cd -r <extracted folder>/rpg_svo_example ~/svo_install_overlay_ws/src
+    cp -r <extracted folder>/rpg_svo_example ~/svo_install_overlay_ws/src
     cd ~/svo_install_overlay_ws
     catkin build
 
