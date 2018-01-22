@@ -23,6 +23,8 @@ If the binaries are updated, you can download the new version from the original 
 you can either start an issue or contact Zichao Zhang (zzhang AT ifi DOT uzh DOT ch).**
 
 # Binaries changelog
+**22.01.2018** Update 16.04 binaries to OpenCV 3.3.1
+
 **29.09.2017** Add binaries for `armhf` (14.04 + `indigo`)
 
 **17.07.2017** Initial Release
