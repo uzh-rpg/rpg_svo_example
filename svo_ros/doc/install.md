@@ -68,7 +68,7 @@ Create a new catkin workspace:
 
 Now, this workspace should overlay both the ros installation and the `svo_msf_ws`. Typing `catkin config`, you should see:
 
-    Extending:    [env] /home/<user>/svo_install_ws/install:/opt/ros/<ros version>
+    Extending:    [env] /home/<user>/svo_msf_ws/install:/opt/ros/<ros version>
 
 Clone this repository and MSF to the source directory of the overlay workspace:
 
