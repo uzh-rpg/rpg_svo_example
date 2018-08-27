@@ -37,16 +37,16 @@ export ARM_ARCHITECTURE=armv7-a
 ```
 
 #### Create the install workspace
-Copy the `svo_install_ws` to where you want to install the binaries (e.g., your home folder in this documentation):
+Copy the `svo_msf_ws` to where you want to install the binaries (e.g., your home folder in this documentation):
 
-    cp -r <extracted folder>/svo_install_ws/ ~/
+    cp -r <extracted folder>/svo_msf_ws/ ~/
 
-Now we should have a folder `~/svo_install_ws` with a subfolder named `install`.
+Now we should have a folder `~/svo_msf_ws` with a subfolder named `install`.
 
 Run the script within the workspace to fix some hardcoded paths:
 
     cd ~
-    cd svo_install_ws
+    cd svo_msf_ws
     ./fix_path.sh
 
 There may be some warnings with `opengv`, which can be safely ignored.
@@ -59,21 +59,22 @@ Now we will create a workspace to use the binaries we just downloaded. Before pr
 Then source the install workspace:
 
     cd ~
-    source svo_install_ws/install/setup.bash
+    source svo_msf_ws/install/setup.bash
 
 Create a new catkin workspace:
 
-    mkdir svo_install_overlay_ws && cd svo_install_overlay_ws
+    mkdir svo_msf_overlay_ws && cd svo_msf_overlay_ws
     catkin config --init --mkdirs --cmake-args -DCMAKE_BUILD_TYPE=Release
 
-Now, this workspace should overlay both the ros installation and the `svo_install_ws`. Typing `catkin config`, you should see:
+Now, this workspace should overlay both the ros installation and the `svo_msf_ws`. Typing `catkin config`, you should see:
 
     Extending:    [env] /home/<user>/svo_install_ws/install:/opt/ros/<ros version>
 
-Copy the `rpg_svo_example` folder to the `src` folder and build the `svo_install_overlay_ws`
+Clone this repository and MSF to the source directory of the overlay workspace:
 
-    cp -r <extracted folder>/rpg_svo_example ~/svo_install_overlay_ws/src
-    cd ~/svo_install_overlay_ws
+    cd ~/svo_msf_overlay_ws/src
+    git clone -b feature/msf_and_backend_integration git@github.com:uzh-rpg/rpg_svo_example.git
+    git clone git@github.com:ethz-asl/ethzasl_msf.git
     catkin build
 
 ### Validate Your Installation
@@ -82,7 +83,7 @@ If you are using an ARM processor, follow  the instructions in `run_on_arm.md` f
 
 Source the setup file of the overlay workspace:
 
-    source ~/svo_install_overlay_ws/devel/setup.bash
+    source ~/svo_msf_overlay_ws/devel/setup.bash
 
 Download the test bag from [here](http://rpg.ifi.uzh.ch/svo2/svo_test_short.bag). Then run the following commands:
 
@@ -98,3 +99,7 @@ You can also check the number of feature tracked and the pipeline status in the 
 ![test rqt](./imgs/test_rqt.png)
 
 At the first launch, the `SVO Namespace` may be incorrect and the information is not displayed. Simply typing `svo` as shown in the screenshot will solve the problem.
+
+To test SVO+MSF, follow the instructions in `run_with_msf.md`.
+
+To test SVO+GTSAM, follow the instructions in `run_with_gtsam.md`.
