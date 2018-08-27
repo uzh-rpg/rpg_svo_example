@@ -26,9 +26,9 @@
 #include <vikit/timer.h>
 
 #ifdef SVO_USE_BACKEND
-#include <svo/backend/backend_factory.h>
+#include <svo_ros/backend_factory.h>
+#include <svo_ros/backend_visualizer.h>
 #include <svo/backend/backend_interface.h>
-#include <svo/backend/backend_visualizer.h>
 #include <svo/backend/backend_optimizer.h>
 #endif
 

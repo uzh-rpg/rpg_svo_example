@@ -21,6 +21,8 @@ ELSE()
 ENDIF()
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -O3 -fsee -fomit-frame-pointer -fno-signed-zeros -fno-math-errno -funroll-loops -ffast-math -fno-finite-math-only")
 
+set(USE_GTSAM true)
+
 #############################################################################
 # Build library
 
@@ -37,6 +39,16 @@ set(SOURCES
   src/svo_node_base.cpp
   src/visualizer.cpp
 )
+
+if(USE_GTSAM)
+    ADD_DEFINITIONS(-DSVO_USE_BACKEND)
+    list(APPEND HEADERS
+      include/svo_ros/backend_visualizer.h
+      include/svo_ros/backend_factory.h)
+    list(APPEND SOURCES
+      src/backend_visualizer.cpp
+      src/backend_factory.cpp)
+endif()
 
 cs_add_library(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 

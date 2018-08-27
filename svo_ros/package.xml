@@ -15,7 +15,7 @@
 
   <depend>nodelet</depend>
   <depend>roscpp</depend>
-  <depend>cmake_modules</depend> 
+  <depend>cmake_modules</depend>
   <depend>nav_msgs</depend>
   <depend>std_msgs</depend>
   <depend>visualization_msgs</depend>
@@ -28,6 +28,7 @@
   <depend>svo_cmake</depend>
   <depend>svo_common</depend>
   <depend>svo_tracker</depend>
+  <depend>svo_backend</depend>
   <depend>vikit_common</depend>
   <depend>vikit_ros</depend>
   <depend>eigen_catkin</depend>

@@ -1,0 +1,29 @@
+<launch>
+  <arg name="quad_name" default="/"/>
+  <!-- SVO -->
+  <node pkg="svo_ros" type="svo_node" name="svo" clear_params="true" output="screen">
+    <!-- Camera and IMU topics to subscribe to -->
+    <param name="cam0_topic" value="/cam0/image_raw" type="str" />
+    <param name="imu_topic" value="/imu0" type="str" />
+    <param name="calib_file" value="$(find svo_ros)/calib/euroc_mono_calib.yaml" type="str" />
+
+    <rosparam file="$(find svo_ros)/param/pinhole.yaml" />
+    <rosparam file="$(find svo_ros)/param/euroc_mono_imu.yaml" />
+
+  </node>
+
+  <node name="svo_sensor_fusion" pkg="msf_updates" type="pose_sensor" clear_params="true" output="screen">
+    <remap from="msf_core/imu_state_input" to="/imu0" />
+    <remap from="msf_updates/pose_with_covariance_input" to="svo/pose_imu" />
+    <rosparam file="$(find svo_ros)/param/svo_msf.yaml"/>
+  </node>
+
+  <node pkg="sensor_fusion_util" name="sensor_fusion_util" type="sensor_fusion_util" output="screen" >
+    <rosparam file="$(find sensor_fusion_util)/parameters/default.yaml"/>
+  </node>
+
+  <node name="rqt_gui_quad" pkg="rqt_gui" type="rqt_gui" args="-s rqt_quad.vision_flight.VisionFlight --args --quad_name $(arg quad_name)"/>
+
+  <!-- RVIZ + SVO GUI -->
+  <node name="vis" pkg="rviz" type="rviz" args=" -d $(find svo_ros)/rviz_config.rviz" />
+</launch>
